@@ -31,6 +31,17 @@ class Queue {
     return this.fifoName;
   }
 
+  render() {
+    const list = document.querySelector('.list');
+    list.innerHTML = '';
+    for (let key in this.fifoQueue) {
+      if (this.fifoQueue.hasOwnProperty(key)) {
+        const markup = `<li class="list-item">${key}] -> ${this.fifoQueue[key]}</li>`;
+        list.insertAdjacentHTML('beforeend', markup);
+      }
+    }
+  }
+
   getQueue(element) {
     if (!isEmpty(this.fifoElements)) {
       for (const elem of this.fifoElements) {
@@ -46,7 +57,8 @@ class Queue {
           ? this.fifoElements[indexPrev]
           : ' ';
         this.fifoQueue[this.fifoElements[indexElem]] = element;
-      };
+      }
+      this.render();
       return this.fifoQueue;
     }
 
@@ -57,7 +69,7 @@ class Queue {
   push_head(element) {
     const newElement = generateElementId(this.fifoName);
     this.fifoHead = newElement;
-    this.fifoElements = [this.fifoHead, ...this.fifoElements]; 
+    this.fifoElements = [this.fifoHead, ...this.fifoElements];
     console.log(this.head());
     console.log(this.getQueue(element));
     console.log(this.tail());
@@ -85,6 +97,15 @@ class Queue {
   }
 }
 
-const fifo = new Queue('BOB');
-fifo.push_head('Value');
-console.log(fifo.getItems());
+// Events
+const button = document.querySelector('.btn');
+
+const startQueue = () => {
+  const textInput = document.querySelector('.input');
+  let textValue = textInput.value;
+  const fifo = new Queue(textValue);
+  fifo.push_head('Value');
+  console.log(fifo.getItems());
+};
+
+button.addEventListener('click', startQueue);
