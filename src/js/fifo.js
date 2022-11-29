@@ -57,7 +57,7 @@ class Queue {
           ? this.fifoElements[indexPrev]
           : ' ';
         this.fifoQueue[this.fifoElements[indexElem]] = element;
-      }
+      };
       this.render();
       return this.fifoQueue;
     }
@@ -101,10 +101,12 @@ class Queue {
 const button = document.querySelector('.btn');
 
 const startQueue = () => {
-  const textInput = document.querySelector('.input');
+  const textInput = document.querySelector('.inputName');
+  const contentInput = document.querySelector('.inputContent')
   let textValue = textInput.value;
+  let contentValue = contentInput.value;
   const fifo = new Queue(textValue);
-  fifo.push_head('Value');
+  fifo.push_head(contentValue);
   console.log(fifo.getItems());
 };
 
